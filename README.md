@@ -2,7 +2,7 @@
 
 ## Description
 
-**SysCoreTools** is an attmpt to implement a small subset of the tools as defined in the The Open Group Base Specifications Issue 7, Shell and Utilities, similar to the ''GNU Coreutils'', albeit no so elaborated.
+**SysCoreTools** is an attmpt to implement a small subset of the tools as defined in the *The Open Group Base Specifications Issue 7, Shell and Utilities*, similar to the **GNU Coreutils**, albeit not so elaborated.
 
 ## Goals
 
@@ -45,14 +45,14 @@ rmcache              Remove Nim cache(s)
 
 * Version 0.1.0 (01/9/2017):
   * First release
-  * Built with Nim0.16.0
+  * Built with Nim 0.16.0
   * Tool available: `wc` version 0.1.0
 
 ## License
 
 MIT License: see included [License file](LICENSE.md).
 
-To be respectful of the licenses, I have no knowledge of and don't look at the code of any of the GNU coreutils implementation with any of the GPL family licenses. But, I may compare the results of the GNU tools execution to validate progress with comparable tools in SysCoreTools.
+To be respectful of the licenses, I have no knowledge of and don't look at the code of any of the GNU coreutils implementation released under one of the GPL family licenses. But, I may compare the results of the GNU tools execution to validate progress with comparable tools in **SysCoreTools**.
 
 ## Resources
 
