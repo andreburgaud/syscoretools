@@ -23,6 +23,38 @@
 * In the `syscoretools` directory: `nimble dist`
 * The executable(s) will be generated in the `dist` subdirectory
 
+### Issues with Nimble on Windows
+
+As of 1/9/2016, I encountered some issues with Nimble on Windows, while finding a better build solution for windows, here is a manual workaround involving only the *Nim* compiler:
+
+To compile `wc.nim`:
+
+```
+> cd src
+> nim c wc.nim
+```
+
+The executable will be generated in the same directory (`src`)
+
+or in release mode:
+
+```
+> cd src
+> nim -d:release --opt:size c wc.nim
+```
+
+If you have `strip` (from mingw64) available in your path, you can further reduce the size of the executable with the following command:
+
+```
+> strip wc.exe
+```
+
+To test the executable, simply run:
+
+```
+> wc --help
+```
+
 ## Tests
 
 Some basic tests can be executed via: `nimble test`
