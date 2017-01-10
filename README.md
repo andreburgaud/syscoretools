@@ -25,7 +25,7 @@
 
 ### Issues with Nimble on Windows
 
-As of 1/9/2016, I encountered some issues with Nimble on Windows, while finding a better build solution for windows, here is a manual workaround involving only the *Nim* compiler:
+As of 1/9/2017, I encountered some issues with Nimble on Windows, while finding a better build solution for windows, here is a manual workaround involving only the *Nim* compiler:
 
 First, you will need to install one required dependency: `strfmt`:
 
