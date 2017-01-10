@@ -20,12 +20,20 @@
 
 * Install Nim, available at http://nim-lang.org/
 * Clone the **SysCoreTools** repository: `git clone https://github.com/andreburgaud/syscoretools`
-* In the `syscoretools` directory: `nimble dist`
+* In the `syscoretools` directory: `nimble dist` (see section below regarding issues with Nimble on Windows)
 * The executable(s) will be generated in the `dist` subdirectory
 
 ### Issues with Nimble on Windows
 
 As of 1/9/2016, I encountered some issues with Nimble on Windows, while finding a better build solution for windows, here is a manual workaround involving only the *Nim* compiler:
+
+First, you will need to install one required dependency: `strfmt`:
+
+```
+> nimble install strfmt
+```
+
+You may need to execute this command in a directory other than the root directory of **syscoretools**, otherwise `nimble` may fail while attempting to parse `syscoretools.nimble`.
 
 To compile `wc.nim`:
 
@@ -59,6 +67,8 @@ To test the executable, simply run:
 
 Some basic tests can be executed via: `nimble test`
 
+**Note**: See section above regarding issues with Nimble on Windows.
+
 ## Other Tasks
 
 To list other tasks available, execute: `nimble tasks`
@@ -72,6 +82,8 @@ build                Compile syscoretools in debug mode
 clean                Delete generated binaries
 rmcache              Remove Nim cache(s)
 ```
+
+**Note**: See section above regarding issues with Nimble on Windows.
 
 ## Release Notes
 
