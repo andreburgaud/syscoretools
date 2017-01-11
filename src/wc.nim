@@ -4,8 +4,6 @@
 
 import os, sequtils, strutils, system, tables, unicode, pegs
 
-import strfmt
-
 import lib / [ parseopt, core, cli ]
 
 const
@@ -27,10 +25,9 @@ Usage: $# [OPTIONS] [FILES]...
   will not be included in the line count.
 
   A word is defined as a string of characters delimited by white space
-  characters. White space characters are the set of characters for which the
-  iswspace(3) function returns true. If more than one input file is
-  specified, a line of cumulative counts for all the files is displayed on a
-  separate line after the output for the last file.
+  characters. If more than one input file is specified, a line of cumulative
+  counts for all the files is displayed on a separate line after the output
+  for the last file.
 
 Options:
   -c         The number of bytes in each input file is written to the standard
@@ -62,7 +59,9 @@ type
 
 proc printCounter(cpt: int64, width: int) =
   ## Print individual counter
-  stdout.write " {:>{}}".fmt(cpt, width)
+  #stdout.write " {:>{}}".fmt(cpt, width)
+  stdout.write spaces(max(0, width - ($cpt).len)) & $cpt
+
 
 proc printCounters(ctx: Context, cptBytes: int64, cptLines: int64,
   cptMulti: int64, cptWords: int64, filename: string=nil) =
@@ -81,7 +80,7 @@ proc printCounters(ctx: Context, cptBytes: int64, cptLines: int64,
     printCounter(cptMulti, WIDTH)
 
   if filename != nil:
-    echo " {}".fmt(filename)
+    echo " $#" % filename
   else:
     echo()
 

@@ -16,26 +16,21 @@
 * GnuWin http://gnuwin32.sourceforge.net/
 * GNU utilities for Win32: http://unxutils.sourceforge.net/
 
-## Build
+## Build All
 
 * Install Nim, available at http://nim-lang.org/
 * Clone the **SysCoreTools** repository: `git clone https://github.com/andreburgaud/syscoretools`
-* In the `syscoretools` directory: `nimble dist` (see section below regarding issues with Nimble on Windows)
-* The executable(s) will be generated in the `dist` subdirectory
-
-### Issues with Nimble on Windows
-
-As of 1/9/2017, I encountered some issues with Nimble on Windows, while finding a better build solution for windows, here is a manual workaround involving only the *Nim* compiler:
-
-First, you will need to install one required dependency: `strfmt`:
-
+* In the `syscoretools` root directory, use `project.nims` (nimscript), as follow:
 ```
-> nimble install strfmt
+$ nim release project`
 ```
+* The executable(s) will be compiled and copied in the `dist` subdirectory
 
-You may need to execute this command in a directory other than the root directory of **syscoretools**, otherwise `nimble` may fail while attempting to parse `syscoretools.nimble`.
+## Compile and Run Individual Tools
 
-To compile `wc.nim`:
+This approach is useful when working on a particular tool, by avoiding to build everything available in the `src` directory.
+
+Example with `wc` (*word count*):
 
 ```
 > cd src
@@ -44,20 +39,26 @@ To compile `wc.nim`:
 
 The executable will be generated in the same directory (`src`)
 
-or in release mode:
+or in `release` mode:
 
 ```
 > cd src
-> nim -d:release --opt:size c wc.nim
+> nim -d:release c wc.nim
 ```
 
-If you have `strip` (from mingw64) available in your path, you can further reduce the size of the executable with the following command:
+If you have `strip` (from mingw64) available in your path, you can further reduce the size of the executable with the following command, on Windows:
 
 ```
 > strip wc.exe
 ```
 
-To test the executable, simply run:
+or on a *NIX variant:
+
+```
+$ strip wc
+```
+
+To run the executable:
 
 ```
 > wc --help
@@ -65,38 +66,44 @@ To test the executable, simply run:
 
 ## Tests
 
-Some basic tests can be executed via: `nimble test`
-
-**Note**: See section above regarding issues with Nimble on Windows.
-
-## Other Tasks
-
-To list other tasks available, execute: `nimble tasks`
+Some basic tests can be executed with:
 
 ```
-$ nimble tasks
-version              Show Nim compiler version
+> nim test project
+```
+
+## Other Available Build Tasks
+
+To list other build tasks available, execute: `nim help project`
+
+```
+$ nim help project
+version              Show project version and Nim compiler version
 test                 Runs the test suite
-dist                 Compile syscoretools in release mode
+release              Compile syscoretools in release mode
 build                Compile syscoretools in debug mode
 clean                Delete generated binaries
-rmcache              Remove Nim cache(s)
 ```
 
-**Note**: See section above regarding issues with Nimble on Windows.
-
 ## Release Notes
+
+* Version 0.1.1 (01/10/2017):
+  * Replaced `nimble` with a basic nimscript
+  * Removed dependency on package `strfmt`
+  * `wc` version 0.1.1
 
 * Version 0.1.0 (01/9/2017):
   * First release
   * Built with Nim 0.16.0
   * Tool available: `wc` version 0.1.0
 
-## License
+## Legal
 
-MIT License: see included [License file](LICENSE.md).
+**System Core Tools** is distributed under the MIT License: see included [License file](LICENSE.md).
 
-To be respectful of the licenses, I have no knowledge of and don't look at the code of any of the GNU coreutils implementation released under one of the GPL family licenses. But, I may compare the results of the GNU tools execution to validate progress with comparable tools in **SysCoreTools**.
+To be respectful of the license, I have no knowledge of and don't look at the code of any of the GNU coreutils implementation released under one of the GPL family licenses. But, I may compare the results of the GNU tools execution to validate progress with comparable tools in **SysCoreTools**.
+
+The help displayed for the each tool may include portion of the documentation copied from the corresponding tool in the BSD General Command Manual. The FreeBSD Documentation License is available at the following link: https://www.freebsd.org/copyright/freebsd-doc-license.html.
 
 ## Resources
 
