@@ -22,7 +22,7 @@
 * Clone the **SysCoreTools** repository: `git clone https://github.com/andreburgaud/syscoretools`
 * In the `syscoretools` root directory, use `project.nims` (nimscript), as follow:
 ```
-$ nim release project`
+$ nim release project
 ```
 * The executable(s) will be compiled and copied in the `dist` subdirectory
 
@@ -66,7 +66,7 @@ To run the executable:
 
 ## Tests
 
-Some basic tests can be executed with:
+Some basic unit tests can be executed with:
 
 ```
 > nim test project
