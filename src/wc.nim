@@ -7,7 +7,7 @@ import os, sequtils, strutils, system, tables, unicode, pegs
 import lib / [ parseopt, core, cli ]
 
 const
-  VERSION = "0.1.0"
+  VERSION = "0.1.1"
 
   # Title for the line of total counters when several file
   TOTAL = "total"
