@@ -6,14 +6,14 @@ srcDir = "src"
 let buildDir = "build"
 
 # Binaries list
-bin = @["wc"]
+bin = @["wc", "uniq"]
 
 # Package version
 let VERSION = "0.1.1"
 let NAME = "System Core Tools"
 
-#mode = ScriptMode.Verbose
-mode = ScriptMode.Silent
+mode = ScriptMode.Verbose
+#mode = ScriptMode.Silent
 
 task version, "Show project version and Nim compiler version":
   echo "$#, $#" % [NAME, VERSION]
@@ -47,6 +47,7 @@ task build, "Compile syscoretools in debug mode":
 task clean, "Delete generated binaries":
   for dir in @[binDir, buildDir]:
     echo "Deleting $#" % dir
+    rmDir dir
   let allTestExe = "tests/all_test".toExe
   echo "Deleting $#" % allTestExe
   rmFile allTestExe

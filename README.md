@@ -85,12 +85,21 @@ build                Compile syscoretools in debug mode
 clean                Delete generated binaries
 ```
 
-## Release Notes
+## Tools and Version
+
+* SysCoreTools 0.2.0
+  * `wc` 0.2.0
+  * `uniq` 0.1.0
+
+## SysCoreToolsRelease Notes
+
+* Version 0.2.0 (01/10/2017):
+  * Replaced `parseopt` with `parseopt3` to be POSIX compliant (option with space separator)
+  * Added `uniq`
 
 * Version 0.1.1 (01/10/2017):
   * Replaced `nimble` with a basic nimscript
   * Removed dependency on package `strfmt`
-  * `wc` version 0.1.1
 
 * Version 0.1.0 (01/9/2017):
   * First release
@@ -104,6 +113,8 @@ clean                Delete generated binaries
 To be respectful of the license, I have no knowledge of and don't look at the code of any of the GNU coreutils implementation released under one of the GPL family licenses. But, I may compare the results of the GNU tools execution to validate progress with comparable tools in **SysCoreTools**.
 
 The help displayed for the each tool may include portion of the documentation copied from the corresponding tool in the BSD General Command Manual. The FreeBSD Documentation License is available at the following link: https://www.freebsd.org/copyright/freebsd-doc-license.html.
+
+Since version 0.2.0, to handle the command line options and arguments, SysCoreTools uses `parseopt3` from the **cligen** project available at https://github.com/c-blake/cligen. The **cligen** project is released under the **ISC** license.
 
 ## Resources
 

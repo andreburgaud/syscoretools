@@ -4,7 +4,7 @@
 
 import os, sequtils, strutils, system, tables, unicode, pegs
 
-import lib / [ parseopt, core, cli ]
+import lib / [ parseopt3, core, cli ]
 
 const
   VERSION = "0.1.1"
@@ -44,7 +44,6 @@ Options:
   --help     Show this message and exit.
 """
 
-
 type
   Count = enum cBytes, cLines, cMulti, cWords ## Enum indexing the total counters
                                               ## in the counts table of the context
@@ -59,7 +58,6 @@ type
 
 proc printCounter(cpt: int64, width: int) =
   ## Print individual counter
-  #stdout.write " {:>{}}".fmt(cpt, width)
   stdout.write spaces(max(0, width - ($cpt).len)) & $cpt
 
 
@@ -108,25 +106,34 @@ proc processFile(ctx: Context, filename: string=nil) =
        ctx.optBytes and
        allIt([ctx.optLines, ctx.optMulti, ctx.optWords], not it):
       cptBytes = f.getFileSize()
-
     else:
-      for ln in f.lineIter:
+      for ln in f.rawLines:
         # ln is a tuple containing the line and a boolean
         # the boolean is false when there is no eol, true otherwise
-        #echo "[" & ln[0] & "]"
         if ctx.optBytes:
-          cptBytes += ln[0].len
+          cptBytes += ln.len
         if ctx.optLines:
-          if ln[1]:
+          if ln[ln.len-1] == '\l':
             # The line has an eol (\l). If no EOL, don't increment the counter.
             inc cptLines
         if ctx.optWords:
           if ctx.optMulti:
-            cptWords += countRuneWords ln[0]
+            #echo cptWords
+            #echo ln.splitWhitespace.len
+            if validateUtf8(ln) < 0:
+              # Valid utf8
+              #cptWords += countRuneWords ln.strip(trailing=true)
+              cptWords += countRuneWords ln
+            else:
+              cptWords += countWords ln
           else:
-            cptWords += countWords ln[0]
+            cptWords += countWords ln
         if ctx.optMulti:
-          cptMulti += runeLen(ln[0])
+          if validateUtf8(ln) < 0:
+              # Valid utf8
+            cptMulti += ln.runeLen
+          else:
+            cptMulti += ln.len
 
     ctx.counts[cBytes] += cptBytes
     ctx.counts[cLines] += cptLines
@@ -193,6 +200,7 @@ proc main() =
   var inFilenames: seq[string] = @[]
 
   var errorOption = false
+  #for kind, key, val in getArgs():
   for kind, key, val in getopt():
     case kind
     of cmdArgument:
